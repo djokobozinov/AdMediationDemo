@@ -23,6 +23,10 @@ public class AdUnitDTO {
         adUnit.getAdNetwork().getName());
   }
 
+  public static AdUnitDTO convertToDashboardDto(AdUnit adUnit) {
+    return new AdUnitDTO(adUnit.getId(), adUnit.getCountryCode(), adUnit.getPriority(), adUnit.getAdType(), null);
+  }
+
   public Long getId() {
     return id;
   }

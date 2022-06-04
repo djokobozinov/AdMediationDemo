@@ -1,7 +1,13 @@
 package com.example.admediation.adnetworks;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.example.admediation.adunits.AdUnit;
 
 /**
  * AdNetwork hold data about the ad network SDK e.q. AdMob
@@ -14,6 +20,8 @@ public class AdNetwork {
   private int minAndroidOsVersion = 1;
   private String blockedCountries;
   private Long priorityNetworkId;
+  @OneToMany(mappedBy = "adNetwork")
+  private List<AdUnit> adUnits = new ArrayList<>();
 
   public AdNetwork() {
   }
@@ -68,4 +76,11 @@ public class AdNetwork {
     this.priorityNetworkId = priorityNetworkId;
   }
 
+  public List<AdUnit> getAdUnits() {
+    return adUnits;
+  }
+
+  public void setAdUnits(List<AdUnit> adUnits) {
+    this.adUnits = adUnits;
+  }
 }

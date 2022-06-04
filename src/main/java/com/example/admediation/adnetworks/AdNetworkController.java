@@ -1,11 +1,10 @@
 package com.example.admediation.adnetworks;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 public class AdNetworkController {
@@ -17,12 +16,10 @@ public class AdNetworkController {
   }
 
   @GetMapping("/adnetwork")
-  public List<AdNetwork> all() {
-    return adNetworkRepository.findAll();
-  }
-
-  @PostMapping("/adnetwork")
-  public AdNetwork createAdNetwork(@RequestBody AdNetwork adNetwork) {
-    return adNetwork;
+  public List<AdNetworkDTO> all() {
+    List<AdNetwork> adNetworks = adNetworkRepository.findAll();
+    return adNetworks.stream()
+        .map(AdNetworkDTO::convertToDto)
+        .collect(Collectors.toList());
   }
 }
