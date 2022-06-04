@@ -8,7 +8,10 @@ import org.springframework.data.repository.query.Param;
 
 public interface AdUnitRepository extends JpaRepository<AdUnit, Long> {
 
-  @Query("SELECT adUnit FROM AdUnit adUnit WHERE :countryCode is null or adUnit.countryCode = :countryCode ORDER BY adUnit.priority DESC")
-  public List<AdUnit> filter(@Param("countryCode") String countryCode);
+  @Query("SELECT au, an FROM AdUnit au JOIN au.adNetwork an " +
+      "WHERE (:countryCode is null or au.countryCode = :countryCode) " +
+      "AND (:osVersion is null OR an.minAndroidOsVersion <= :osVersion) " +
+      "ORDER BY au.priority DESC")
+  public List<AdUnit> filter(@Param("countryCode") String countryCode, @Param("osVersion") Integer osVersion);
 
 }

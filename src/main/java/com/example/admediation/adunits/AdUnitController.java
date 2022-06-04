@@ -16,8 +16,9 @@ public class AdUnitController {
   }
 
   @GetMapping("/adunit")
-  public List<AdUnit> filter(@RequestParam(required = false) String countryCode) {
-    return adUnitRepository.filter(countryCode);
+  public List<AdUnit> filter(@RequestParam(required = false) String countryCode,
+      @RequestParam(required = false) Integer osVersion) {
+    return adUnitRepository.filter(countryCode, osVersion);
   }
 
 }

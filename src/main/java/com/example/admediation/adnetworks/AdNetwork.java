@@ -11,12 +11,12 @@ import javax.persistence.Id;
 public class AdNetwork {
   private @Id Long id;
   private String name;
-  private Integer minAndroidOsVersion;
+  private int minAndroidOsVersion = 1;
 
   public AdNetwork() {
   }
 
-  public AdNetwork(Long id, String name, Integer minAndroidOsVersion) {
+  public AdNetwork(Long id, String name, int minAndroidOsVersion) {
     this.id = id;
     this.name = name;
     this.minAndroidOsVersion = minAndroidOsVersion;

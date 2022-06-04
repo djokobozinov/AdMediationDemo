@@ -20,14 +20,24 @@ class LoadDatabase {
   CommandLineRunner initDatabase(AdNetworkRepository adNetworkRepository, AdUnitRepository adUnitRepository) {
 
     return args -> {
+      log.info("Preloading test data started!");
+
       // Admob
       AdNetwork adMob = new AdNetwork(1L, "AdMob", 9);
-      log.info("Preloading " + adNetworkRepository.save(adMob));
-      log.info("Preloading " + adUnitRepository.save(new AdUnit("US", 1, adMob)));
+      adNetworkRepository.save(adMob);
+      adUnitRepository.save(new AdUnit("US", 78, adMob));
+      adUnitRepository.save(new AdUnit("DE", 56, adMob));
       // Facebook
-      AdNetwork facebook = new AdNetwork(2L, "Facebook", null);
-      log.info("Preloading " + adNetworkRepository.save(facebook));
-      log.info("Preloading " + adUnitRepository.save(new AdUnit("SI", 2, facebook)));
+      AdNetwork facebook = new AdNetwork(2L, "Facebook", 8);
+      adNetworkRepository.save(facebook);
+      adUnitRepository.save(new AdUnit("SI", 25, facebook));
+      // Unity
+      AdNetwork unity = new AdNetwork(3L, "Unity", 1);
+      adNetworkRepository.save(unity);
+      adUnitRepository.save(new AdUnit("US", 12, unity));
+      adUnitRepository.save(new AdUnit("DE", 34, unity));
+
+      log.info("Preloading test data finished!");
     };
   }
 }
