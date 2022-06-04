@@ -19,11 +19,15 @@ public class AdUnitController {
   @GetMapping("/adunit")
   public List<AdUnitDTO> filter(@RequestParam(required = false) String countryCode,
       @RequestParam(required = false) Integer osVersion) {
-    List<AdUnit> adUnits = adUnitRepository.filter(countryCode, osVersion);  
+    List<AdUnit> adUnits = adUnitRepository.filter(countryCode, osVersion);
     adUnits = AdUnitHelper.filterPriorityNetworks(adUnits);
+    // In case list is empty, get all ad units.
+    // Non optimal order is better than empty list is specified in the task.
+    if (adUnits == null || adUnits.isEmpty()) {
+      adUnits = adUnitRepository.findAll();
+    }
     return adUnits.stream()
         .map(AdUnitDTO::convertToDto)
         .collect(Collectors.toList());
   }
-
- }
+}
