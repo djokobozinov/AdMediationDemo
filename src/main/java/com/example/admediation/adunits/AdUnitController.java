@@ -1,6 +1,7 @@
 package com.example.admediation.adunits;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,9 +17,12 @@ public class AdUnitController {
   }
 
   @GetMapping("/adunit")
-  public List<AdUnit> filter(@RequestParam(required = false) String countryCode,
+  public List<AdUnitDTO> filter(@RequestParam(required = false) String countryCode,
       @RequestParam(required = false) Integer osVersion) {
-    return adUnitRepository.filter(countryCode, osVersion);
+    List<AdUnit> adUnits = adUnitRepository.filter(countryCode, osVersion);
+    return adUnits.stream()
+        .map(AdUnitDTO::convertToDto)
+        .collect(Collectors.toList());
   }
 
 }

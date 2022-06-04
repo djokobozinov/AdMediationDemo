@@ -19,6 +19,7 @@ public class AdUnit {
   private @Id @GeneratedValue Long id;
   private String countryCode;
   private int priority = 0;
+  private AdType adType;
   @ManyToOne
   @JoinColumn(name = "ADNETWORK_ID")
   private AdNetwork adNetwork;
@@ -26,9 +27,10 @@ public class AdUnit {
   public AdUnit() {
   }
 
-  public AdUnit(String countryCode, int priority, AdNetwork adNetwork) {
+  public AdUnit(String countryCode, int priority, AdType type, AdNetwork adNetwork) {
     this.countryCode = countryCode;
     this.priority = priority;
+    this.adType = type;
     this.adNetwork = adNetwork;
   }
 
@@ -50,6 +52,14 @@ public class AdUnit {
 
   public void setPriority(int priority) {
     this.priority = priority;
+  }
+
+  public AdType getAdType() {
+    return adType;
+  }
+
+  public void setAdType(AdType adType) {
+    this.adType = adType;
   }
 
   public AdNetwork getAdNetwork() {

@@ -11,7 +11,7 @@ I'm runing the project on Linux, and I have Java version 11.
 
 1. Start project with typing this command in your command line `./mvnw spring-boot:run` 
 
-## Project Specification
+## Project Spec
 
 There are 2 entities:
 
@@ -19,7 +19,14 @@ There are 2 entities:
 
 AdNetwork hold data about the ad network SDK, for example AdMob, and other details related like minimimum android version suported.<br /> 
 
-```AdUnit(id, countryCode, priority, adnetwork_id)```
+```AdUnit(id, countryCode, priority, type, adnetwork_id)```
 
 AdUnit holds data about diferent instances of the AdNetwork that are displayed, diferent types like banner or interestial and for different countries. AdUnit also holds data for the priority score of every unit.<br />
 The higher the number of the priority is, that means the better the AdUnit is doing.
+
+Entites are converted to DTOs when are returned from rest controllers.
+
+## Test api calls
+
+### GetAdUnits
+```curl --location --request GET 'http://localhost:8080/adunit?osVersion=8&countryCode=SI'```
