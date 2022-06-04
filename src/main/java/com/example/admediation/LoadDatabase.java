@@ -6,6 +6,8 @@ import com.example.admediation.adunits.AdType;
 import com.example.admediation.adunits.AdUnit;
 import com.example.admediation.adunits.AdUnitRepository;
 
+import java.util.Random;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -26,21 +28,35 @@ class LoadDatabase {
       // Admob
       AdNetwork adMob = new AdNetwork(1L, "AdMob", 9);
       adNetworkRepository.save(adMob);
-      adUnitRepository.save(new AdUnit("US", 78, AdType.BANNER, adMob));
-      adUnitRepository.save(new AdUnit("DE", 56, AdType.INTERSTITIAL, adMob));
-      adUnitRepository.save(new AdUnit("SI", 120, AdType.BANNER, adMob));
+      adUnitRepository.save(new AdUnit("US", calcPriorityScore(), AdType.BANNER, adMob));
+      adUnitRepository.save(new AdUnit("DE", calcPriorityScore(), AdType.INTERSTITIAL, adMob));
+      adUnitRepository.save(new AdUnit("SI", calcPriorityScore(), AdType.BANNER, adMob));
+      adUnitRepository.save(new AdUnit("CN", calcPriorityScore(), AdType.BANNER, adMob));
+      // AdMob-OptOut
+      AdNetwork adMobOptOut = new AdNetwork(2L, "AdMob-OptOut", 9);
+      adMobOptOut.setPriorityNetworkId(1L);
+      adNetworkRepository.save(adMobOptOut);
+      adUnitRepository.save(new AdUnit("SI", calcPriorityScore(), AdType.BANNER, adMobOptOut));
+      adUnitRepository.save(new AdUnit("AU", calcPriorityScore(), AdType.BANNER, adMobOptOut));
       // Facebook
-      AdNetwork facebook = new AdNetwork(2L, "Facebook", 1);
+      AdNetwork facebook = new AdNetwork(3L, "Facebook", 1);
+      facebook.setBlockedCountries("CN");
       adNetworkRepository.save(facebook);
-      adUnitRepository.save(new AdUnit("SI", 25, AdType.BANNER, facebook));
-      adUnitRepository.save(new AdUnit("US", 78, AdType.BANNER, adMob));
+      adUnitRepository.save(new AdUnit("SI", calcPriorityScore(), AdType.BANNER, facebook));
+      adUnitRepository.save(new AdUnit("US", calcPriorityScore(), AdType.BANNER, facebook));
+      adUnitRepository.save(new AdUnit("CN", calcPriorityScore(), AdType.BANNER, facebook));
       // Unity
-      AdNetwork unity = new AdNetwork(3L, "Unity", 1);
+      AdNetwork unity = new AdNetwork(4L, "Unity", 1);
       adNetworkRepository.save(unity);
-      adUnitRepository.save(new AdUnit("US", 12, AdType.BANNER, unity));
-      adUnitRepository.save(new AdUnit("DE", 34, AdType.REWARDED, unity));
+      adUnitRepository.save(new AdUnit("US", calcPriorityScore(), AdType.BANNER, unity));
+      adUnitRepository.save(new AdUnit("DE", calcPriorityScore(), AdType.REWARDED, unity));
+      adUnitRepository.save(new AdUnit("CN", calcPriorityScore(), AdType.INTERSTITIAL, unity));
 
       log.info("Preloading test data finished!");
     };
+  }
+
+  private int calcPriorityScore() {
+    return new Random().nextInt(1000);
   }
 }

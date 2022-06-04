@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * AdNetwork hold data about the ad network SDK e.q. AdMob 
+ * AdNetwork hold data about the ad network SDK e.q. AdMob
  * and the details related to specific SDK.
  */
 @Entity
@@ -12,6 +12,8 @@ public class AdNetwork {
   private @Id Long id;
   private String name;
   private int minAndroidOsVersion = 1;
+  private String blockedCountries;
+  private Long priorityNetworkId;
 
   public AdNetwork() {
   }
@@ -41,4 +43,29 @@ public class AdNetwork {
   public void setMinAndroidOsVersion(Integer minAndroidOsVersion) {
     this.minAndroidOsVersion = minAndroidOsVersion;
   }
+
+  public String getBlockedCountries() {
+    return blockedCountries;
+  }
+
+  /**
+   * If AdNetwork get blocked in some countrie it should be writen e.q. "US, CN"
+   */
+  public void setBlockedCountries(String blockedCountries) {
+    this.blockedCountries = blockedCountries;
+  }
+
+  public Long getPriorityNetworkId() {
+    return priorityNetworkId;
+  }
+
+  /**
+   * Should be set only if AdNetwork does not need to coexist with other AdNetwork
+   * that has higher priority.
+   * (e.q. Admob and AdMob-OptOut don't go together)
+   */
+  public void setPriorityNetworkId(Long priorityNetworkId) {
+    this.priorityNetworkId = priorityNetworkId;
+  }
+
 }

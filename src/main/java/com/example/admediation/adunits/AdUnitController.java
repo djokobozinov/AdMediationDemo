@@ -19,10 +19,11 @@ public class AdUnitController {
   @GetMapping("/adunit")
   public List<AdUnitDTO> filter(@RequestParam(required = false) String countryCode,
       @RequestParam(required = false) Integer osVersion) {
-    List<AdUnit> adUnits = adUnitRepository.filter(countryCode, osVersion);
+    List<AdUnit> adUnits = adUnitRepository.filter(countryCode, osVersion);  
+    adUnits = AdUnitHelper.filterPriorityNetworks(adUnits);
     return adUnits.stream()
         .map(AdUnitDTO::convertToDto)
         .collect(Collectors.toList());
   }
 
-}
+ }
