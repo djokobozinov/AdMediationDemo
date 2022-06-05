@@ -106,3 +106,22 @@ Every AdNetwork will have expand button. When AdNetwork is expanded, a sublist w
     ...
 ]
 ```
+
+## 3. Update list of ad networks
+Updating the priority with new calculated priority from pipeline for ad unit that we need to update.
+Sending id(the ad unit id) and the new priority.
+
+```
+curl --location --request PUT 'http://localhost:8080/adunit' \
+--header 'Content-Type: application/json' \
+--data-raw '[
+    {
+        "id": 7,
+        "priority": 870
+    },
+    {
+        "id": 3,
+        "priority": 329
+    }
+]'
+```
