@@ -35,7 +35,14 @@ For testing purposes dummy data will be preloaded on application start in LoadDa
 ## 1. Retrieve list of ad networks from mobile app
 Filtered list of adUnits for every adNetwork is returned ordered by prioirty.
 
+Local:
+
 ```curl --location --request GET 'http://localhost:8080/adunit?countryCode=SI&osVersion=10'```
+
+AppEngine:
+
+```curl --location --request GET 'https://admediationdemo-352416.uc.r.appspot.com/adunit?countryCode=SI&osVersion=10'```
+
 ```
 [
     {
@@ -63,7 +70,14 @@ Each ad network has list with ad units with all the details.
 In the dashboard there could be a grid that will display all the details about every AdNetwork, with option to edit them.
 Every AdNetwork will have expand button. When AdNetwork is expanded, a sublist with AdUnits and option to edit them will be displayed.
 
+Local:
+
 ```curl --location --request GET 'http://localhost:8080/adnetwork'```
+
+AppEngine:
+
+```curl --location --request GET 'https://admediationdemo-352416.uc.r.appspot.com/adnetwork'```
+
 ```
 [
     {
@@ -111,8 +125,27 @@ Every AdNetwork will have expand button. When AdNetwork is expanded, a sublist w
 Updating the priority with new calculated priority from pipeline for ad unit that we need to update.
 Sending id(the ad unit id) and the new priority.
 
+Local:
+
 ```
 curl --location --request PUT 'http://localhost:8080/adunit' \
+--header 'Content-Type: application/json' \
+--data-raw '[
+    {
+        "id": 7,
+        "priority": 870
+    },
+    {
+        "id": 3,
+        "priority": 329
+    }
+]'
+```
+
+AppEngine:
+
+```
+curl --location --request PUT 'https://admediationdemo-352416.uc.r.appspot.com/adunit' \
 --header 'Content-Type: application/json' \
 --data-raw '[
     {
