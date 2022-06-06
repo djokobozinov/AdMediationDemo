@@ -158,3 +158,12 @@ curl --location --request PUT 'https://admediationdemo-352416.uc.r.appspot.com/a
     }
 ]'
 ```
+
+# Note
+
+## AppEngine cold start 
+Because I'm on free tier on AppEngine, sometimes cold start can happen. 
+If there is no active instance, a fresh instance need to be started.
+This can result in latency for the initial request. 
+And because I use H2 in memory database the initial request may return only part of the data because loading test data is not finished.
+But after reloading, the requests will have normal time and response.
