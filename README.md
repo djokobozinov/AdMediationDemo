@@ -39,10 +39,6 @@ Local:
 
 ```curl --location --request GET 'http://localhost:8080/adunit?countryCode=SI&osVersion=10'```
 
-AppEngine:
-
-```curl --location --request GET 'https://admediationdemo-352416.uc.r.appspot.com/adunit?countryCode=SI&osVersion=10'```
-
 ```
 [
     {
@@ -73,10 +69,6 @@ Every AdNetwork will have expand button. When AdNetwork is expanded, a sublist w
 Local:
 
 ```curl --location --request GET 'http://localhost:8080/adnetwork'```
-
-AppEngine:
-
-```curl --location --request GET 'https://admediationdemo-352416.uc.r.appspot.com/adnetwork'```
 
 ```
 [
@@ -141,29 +133,3 @@ curl --location --request PUT 'http://localhost:8080/adunit' \
     }
 ]'
 ```
-
-AppEngine:
-
-```
-curl --location --request PUT 'https://admediationdemo-352416.uc.r.appspot.com/adunit' \
---header 'Content-Type: application/json' \
---data-raw '[
-    {
-        "id": 7,
-        "priority": 870
-    },
-    {
-        "id": 3,
-        "priority": 329
-    }
-]'
-```
-
-# Note
-
-## AppEngine cold start 
-Because I'm on free tier on AppEngine, sometimes cold start can happen. 
-If there is no active instance, a fresh instance need to be started.
-This can result in latency for the initial request. 
-And because I use H2 in memory database the initial request may return only part of the data because loading test data is not finished.
-But after reloading, the requests will have normal time and response.
